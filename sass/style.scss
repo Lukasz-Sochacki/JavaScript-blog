@@ -131,14 +131,20 @@ body {
     opacity: 1;
     z-index: 2;
   }
-  .post-title,
-  .post-author {
+  .post-title {
     text-align: center;
   }
 }
 
 .post-author {
   font-style: italic;
+  list-style: none;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 }
 
 .post-tags {
