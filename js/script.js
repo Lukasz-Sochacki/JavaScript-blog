@@ -82,6 +82,22 @@
 
   generateTitleLinks();
 
+  const calculateTagsParams = function (tags) {
+    const params = {
+      min: 999999,
+      max: 0,
+    };
+    for (let tag in tags) {
+      // console.log(tag + ' is used ' + tags[tag] + ' time[s]');
+      if (tags[tag] > params.max) {
+        params.max = tags[tag];
+      } else if (tags[tag] < params.min) {
+        params.min = tags[tag];
+      }
+    }
+    return params;
+  };
+
   const generateTags = function () {
     /* [NEW] [DONE] create a new variable allTags with an empty [NEW] object */
     let allTags = {};
@@ -130,6 +146,9 @@
 
     /* [NEW] [DONE] add html from allTags to tagList */
     // tagList.innerHTML = allTags.join(' ');
+
+    const tagsParams = calculateTagsParams(allTags);
+    console.log('tagsParams: ', tagsParams);
 
     /* [NEW-object] [DONE] create variable for all links HTML code */
     let allTagsHTML = '';
