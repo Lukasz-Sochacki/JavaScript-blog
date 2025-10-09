@@ -83,8 +83,8 @@
   generateTitleLinks();
 
   const generateTags = function () {
-    /* [NEW] [DONE] create a new variable allTags with an empty array */
-    let allTags = [];
+    /* [NEW] [DONE] create a new variable allTags with an empty [NEW] object */
+    let allTags = {};
 
     /* [DONE] find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
@@ -113,11 +113,12 @@
         html = html + linkTag + ' ';
 
         /* [NEW] [DONE] check if this link is NOT already in allTags */
-        if (allTags.indexOf(linkTag) == -1) {
-          /* [NEW] [DONE] add generated code to allTags array */
-          allTags.push(linkTag);
+        if (!allTags[tag]) {
+          /* [NEW] [DONE] add [NEW] tag to allTags [NEW] object */
+          allTags[tag] = 1;
+        } else {
+          allTags[tag]++;
         }
-
         /* [DONE] END LOOP: for each tag */
       }
       /* [DONE] insert HTML of all links into the tags wrapper */
@@ -128,8 +129,29 @@
     const tagList = document.querySelector(optTagsListSelector);
 
     /* [NEW] [DONE] add html from allTags to tagList */
-    tagList.innerHTML = allTags.join(' ');
+    // tagList.innerHTML = allTags.join(' ');
+
+    /* [NEW-object] [DONE] create variable for all links HTML code */
+    let allTagsHTML = '';
+
+    /* [NEW-object] [DONE] START LOOP: for each tag in allTags */
+    for (let tag in allTags) {
+      /* [NEW-object] [DONE] generate code of a link and add it to allTagsHTML */
+      allTagsHTML +=
+        '<li><a href="#tag-' +
+        tag +
+        '"><span>' +
+        tag +
+        ' (' +
+        allTags[tag] +
+        ') ';
+      /* [NEW-object] [DONE] END LOOP: for each tag in allTags */
+    }
+
+    /* [NEW-object] [DONE] add HTML from allTagsHTML to tagList */
+    tagList.innerHTML = allTagsHTML;
   };
+
   generateTags();
 
   const tagClickHandler = function (event) {
