@@ -1,6 +1,13 @@
 {
   ('use strict');
 
+  const optArticleSelector = '.post',
+    optTitleSelector = '.post-title',
+    optTitleListSelector = '.titles',
+    optArticleTagsSelector = '.post-tags .list',
+    optArticleAuthorSelector = '.post .post-author',
+    optTagsListSelector = '.tags.list';
+
   const titleClickHandler = function (event) {
     event.preventDefault();
     const clickedElement = this;
@@ -31,12 +38,6 @@
     /* [DONE] add class "active" to the correct article */
     targetArticle.classList.add('active');
   };
-
-  const optArticleSelector = '.post',
-    optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles',
-    optArticleTagsSelector = '.post-tags .list';
-  optArticleAuthorSelector = '.post .post-author';
 
   const generateTitleLinks = function (customSelector = '') {
     /* [DONE] Remove contents of titleList */
@@ -82,6 +83,9 @@
   generateTitleLinks();
 
   const generateTags = function () {
+    /* [NEW] [DONE] create a new variable allTags with an empty array */
+    let allTags = [];
+
     /* [DONE] find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
 
@@ -107,12 +111,24 @@
 
         /* [DONE] add generated code to html variable */
         html = html + linkTag + ' ';
+
+        /* [NEW] [DONE] check if this link is NOT already in allTags */
+        if (allTags.indexOf(linkTag) == -1) {
+          /* [NEW] [DONE] add generated code to allTags array */
+          allTags.push(linkTag);
+        }
+
         /* [DONE] END LOOP: for each tag */
       }
       /* [DONE] insert HTML of all links into the tags wrapper */
       tagList.innerHTML = html;
       /* [DONE] END LOOP: for every article */
     }
+    /* [NEW] [DONE] find list of tags in right column */
+    const tagList = document.querySelector(optTagsListSelector);
+
+    /* [NEW] [DONE] add html from allTags to tagList */
+    tagList.innerHTML = allTags.join(' ');
   };
   generateTags();
 
@@ -219,7 +235,6 @@
   const addClickListenersToAuthors = function () {
     /* [DONE] find all link to tags */
     const authorLinks = document.querySelectorAll('a[href^="#author-"]');
-
     /* [DONE] START LOOP: for each link */
     for (let authorLink of authorLinks) {
       /* [DONE] add authorClickHandler as event listener for that link */
