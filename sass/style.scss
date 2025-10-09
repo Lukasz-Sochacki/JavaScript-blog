@@ -88,7 +88,6 @@ body {
   padding: 0;
   a {
     text-decoration: none;
-    color: black;
     &:hover {
       color: darkgray;
     }
@@ -155,5 +154,31 @@ body {
   span {
     color: blue;
     text-decoration: underline;
+  }
+}
+
+.list.tags li {
+  display: inline-block;
+}
+.tag-size- {
+  &1 {
+    font-size: 100%;
+    color: black;
+  }
+  &2 {
+    font-size: 120%;
+    color: blue;
+  }
+  &3 {
+    font-size: 140%;
+    color: orange;
+  }
+  &4 {
+    font-size: 160%;
+    color: brown;
+  }
+  &5 {
+    font-size: 200%;
+    color: red;
   }
 }
