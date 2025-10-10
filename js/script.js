@@ -7,6 +7,7 @@
     optArticleTagsSelector = '.post-tags .list',
     optArticleAuthorSelector = '.post .post-author',
     optTagsListSelector = '.list.tags',
+    optAuthorListSelector = '.list.authors',
     optCloudClassCount = 5,
     optCloudClassPrefix = 'tag-size-';
 
@@ -173,7 +174,7 @@
         '">' +
         tag +
         '</a></li>';
-      console.log('tagLinkHTML:', tagLinkHTML);
+      // console.log('tagLinkHTML:', tagLinkHTML);
       /* [NEW-object] [DONE] generate code of a link and add it to allTagsHTML */
       allTagsHTML += tagLinkHTML;
 
@@ -239,6 +240,8 @@
   addClickListenersToTags();
 
   const generateAuthors = function () {
+    /* [NEW] [DONE] create a new variable allAuthors with an empty [NEW] object */
+    let allAuthors = {};
     /* [DONE] find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
     /* [DONE] START LOOP: for every article */
@@ -261,8 +264,49 @@
       html = html + linkAuthor;
       /* [DONE] insert HTML of all links into the author wrapper */
       authorList.innerHTML = html;
+
+      /* [NEW] [DONE] check if this link is NOT already in allAuthors */
+      if (!allAuthors[articleAuthors]) {
+        /* [NEW] [DONE] add [NEW] Author to allAuthors [NEW] object */
+        allAuthors[articleAuthors] = 1;
+      } else {
+        allAuthors[articleAuthors]++;
+      }
+      /* [DONE] END LOOP: for every article */
     }
+    /* [NEW] [DONE] find list of Authors in right column */
+    const authorList = document.querySelector(optAuthorListSelector);
+
+    /* [NEW-object] [DONE] create variable for all links HTML code */
+    let allAuthorsHTML = '';
+
+    /* [NEW-object] [DONE] START LOOP: for each Author in allAuthors */
+    for (let author in allAuthors) {
+      const authorLinkHTML =
+        '<li><a href="#author-' +
+        author +
+        '">' +
+        author +
+        ' (' +
+        allAuthors[author] +
+        ')</a></li>';
+      // console.log('authorLinkHTML: ', authorLinkHTML);
+      /* [NEW-object] [DONE] generate code of a link and add it to allAuthorsHTML */
+      allAuthorsHTML += authorLinkHTML;
+    }
+
+    /* [NEW-object] [DONE] add HTML from allAuthorsHTML to authorList */
+    authorList.innerHTML = allAuthorsHTML;
   };
+
+  // '<li><a href="#tag-' +
+  // tag +
+  // '"><span>' +
+  // tag +
+  // ' (' +
+  // allTags[tag] +
+  // ') ';
+
   generateAuthors();
 
   const authorClickHandler = function (event) {
